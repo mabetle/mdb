@@ -2,7 +2,7 @@ package mdb
 
 import (
 //"fmt"
-//"github.com/github.com/mabetle/mcore"
+//"github.com/mabetle/mcore"
 )
 
 // use []][]string array to store sql query result.

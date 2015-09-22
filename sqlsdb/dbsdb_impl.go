@@ -2,7 +2,7 @@ package sqlsdb
 
 import (
 	"fmt"
-	"github.com/github.com/mabetle/mcore/msdb"
+	"github.com/mabetle/mcore/msdb"
 	"github.com/mabetle/mdb"
 )
 

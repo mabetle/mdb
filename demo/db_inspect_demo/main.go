@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/mabetle/mdb/demo/ioc"
 	"fmt"
-	. "github.com/github.com/mabetle/mcore/mtest"
+	. "github.com/mabetle/mcore/mtest"
 )
 
 var(
