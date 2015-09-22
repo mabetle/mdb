@@ -3,6 +3,7 @@ package xorm_mysqld
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/mabetle/mdb"
 	"github.com/mabetle/mdb/dbconf"
@@ -27,6 +28,9 @@ func NewXorm(conf *dbconf.DBConf) (*mdb.Xorm, error) {
 	engine.ShowDebug = false
 	engine.ShowErr = true
 	engine.ShowWarn = false
+	//engine.SetColumnMapper(core.SnakeMapper{})
+	engine.SetTableMapper(core.SnakeMapper{})
+	engine.SetColumnMapper(core.SameMapper{})
 
 	return mdb.NewXorm(engine), nil
 }
@@ -50,6 +54,9 @@ func NewDevXorm(conf *dbconf.DBConf) (*mdb.Xorm, error) {
 	engine.ShowDebug = true
 	engine.ShowErr = true
 	engine.ShowWarn = true
+
+	engine.SetTableMapper(core.SnakeMapper{})
+	engine.SetColumnMapper(core.SameMapper{})
 
 	return mdb.NewXorm(engine), nil
 }
