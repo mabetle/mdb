@@ -117,3 +117,10 @@ func (s Xorm) DropMigrate(models ...interface{}) error {
 	}
 	return err
 }
+
+// Find wraps xorm Find.
+func (s Xorm) Find(beans interface{}, condiBeans ...interface{}) error {
+	err := s.Engine.Find(beans, condiBeans...)
+	logger.CheckError(err)
+	return err
+}
