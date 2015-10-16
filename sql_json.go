@@ -2,49 +2,51 @@ package mdb
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// QueryForJsonData
-// returns Map key is rows id, value stores row marshal json data.
-func (s Sql)QueryForJsonData(sql string, args ... interface{})(map[string]string){
-	rows, _ := s.Query(sql, args...)
+// QueryForMaps
+func (s Sql) QueryForMaps(
+	sql string,
+	include string,
+	exclude string,
+	args ...interface{},
+) ([]map[string]interface{}, error) {
+	jsonDatas := make([]map[string]interface{}, 0)
+	rows, err := s.Query(sql, args...)
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
-
-	columns, _ := rows.Columns()
+	columns, errC := rows.Columns()
+	if errC != nil {
+		return nil, errC
+	}
 	scanArgs := make([]interface{}, len(columns))
-	values	 := make([]interface{}, len(columns))
-
+	values := make([]interface{}, len(columns))
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}
-
-	//its a map
-	// strore id and json values
-	rowsData := map[string]string{}
-
-	index:=0
-
 	for rows.Next() {
-		_ = rows.Scan(scanArgs...)
-
+		rows.Scan(scanArgs...)
 		record := make(map[string]interface{})
-
 		for i, col := range values {
-			if col != nil {
-				//v:=fmt.Sprintf("%s", string(col.([]byte)))
-				v:=GetString(col)
-				record[columns[i]] = v
-			}
+			record[columns[i]] = col
 		}
+		jsonDatas = append(jsonDatas, record)
+	}
+	return jsonDatas, nil
+}
 
-		s, _ := json.Marshal(record)
-
-		//FIXME
-		// index should put Row ID
-		rowsData[string(index)] = string(s)
-
-		index++
+// QueryForJsonData
+// returns Map key is rows id, value stores row marshal json data.
+func (s Sql) QueryForJsonData(sql string, args ...interface{}) map[string]string {
+	jsonDatas, _ := s.QueryForMaps(sql, "", "", args...)
+	rowsData := make(map[string]string)
+	for _, v := range jsonDatas {
+		s, _ := json.Marshal(v)
+		id := fmt.Sprint(v["Id"])
+		rowsData[id] = string(s)
 	}
 	return rowsData
 }
-
