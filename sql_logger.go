@@ -1,5 +1,10 @@
 package mdb
 
+import (
+	"fmt"
+	"github.com/mabetle/mcore"
+)
+
 // SqlLogger
 type SqlLogger struct {
 }
@@ -18,11 +23,10 @@ func GetSqlLogger() *SqlLogger {
 
 // SqlLogger Log
 func (s SqlLogger) Log(query string, args ...interface{}) {
-	logger.Trace("Query:", query)
+	msg := fmt.Sprintf("\nQuery:%s", query)
 	if len(args) > 0 {
-		logger.Trace("Args:")
-		for i, arg := range args {
-			logger.Tracef("Arg %d : %v", i, arg)
-		}
+		argStr := mcore.Join(",", args...)
+		msg = fmt.Sprintf("%s\nArgs:%s", msg, argStr)
 	}
+	logger.Trace(msg)
 }
