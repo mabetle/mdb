@@ -5,11 +5,11 @@ import (
 	"fmt"
 )
 
-// QueryForMaps
+// QueryForMaps query for maps
 func (s Sql) QueryForMaps(
 	sql string,
 	args ...interface{},
-) (jsonDatas []map[string]interface{}, columns []string, err error) {
+) (JSONDatas []map[string]interface{}, columns []string, err error) {
 	rows, errQ := s.Query(sql, args...)
 	if errQ != nil {
 		err = errQ
@@ -31,17 +31,16 @@ func (s Sql) QueryForMaps(
 		for i, col := range values {
 			record[columns[i]] = col
 		}
-		jsonDatas = append(jsonDatas, record)
+		JSONDatas = append(JSONDatas, record)
 	}
 	return
 }
 
-// QueryForJsonData
-// returns Map key is rows id, value stores row marshal json data.
-func (s Sql) QueryForJsonData(sql string, args ...interface{}) map[string]string {
-	jsonDatas, _, _ := s.QueryForMaps(sql, args...)
+// QueryForJSONData returns Map key is rows id, value stores row marshal JSON data.
+func (s Sql) QueryForJSONData(sql string, args ...interface{}) map[string]string {
+	JSONDatas, _, _ := s.QueryForMaps(sql, args...)
 	rowsData := make(map[string]string)
-	for _, v := range jsonDatas {
+	for _, v := range JSONDatas {
 		s, _ := json.Marshal(v)
 		id := fmt.Sprint(v["Id"])
 		rowsData[id] = string(s)

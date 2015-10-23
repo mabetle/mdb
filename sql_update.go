@@ -15,7 +15,7 @@ func (s Sql) UpdateTableRowColumn(table string, id interface{}, column string, n
 	if IsBlank(id, "ID") || IsBlank(column, "Column") {
 		return
 	}
-	q := fmt.Sprintf("update % set %s = ? where %s <> ? and id = ?", table, column, newValue, newValue)
+	q := fmt.Sprintf("update %s set %s = ? where %s <> ? and id = ?", table, column, newValue, newValue)
 	_, err := s.Exec(q, id)
 	CheckErrorWithSucceedMsg(err, "Update row column value succeed: Table:%s ID:%v Column:%s NewValue:%v", table, id, column, newValue)
 }

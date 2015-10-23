@@ -53,7 +53,7 @@ func (s Sql) AlterAddColumn(table, column, dataType string) error {
 
 // alter table, drop primary key
 func (s Sql) AlterDropPrimaryKey(table string) error {
-	q := fmt.Sprint("ALTER TABLE %s DROP PRIMARY KEY", table)
+	q := fmt.Sprintf("ALTER TABLE %s DROP PRIMARY KEY", table)
 	_, err := s.Exec(q)
 	return err
 }
