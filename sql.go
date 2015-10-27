@@ -13,6 +13,7 @@ type Sql struct {
 	Dialect    string // defautl to mysql.
 }
 
+// New creates sql
 func New() *Sql {
 	logger.Trace("Create new mdb.Sql ")
 	return new(Sql)
@@ -28,20 +29,20 @@ func NewSql(db *sql.DB) *Sql {
 	return s
 }
 
-// use which schema/database.
+// Use which schema/database.
 func (s *Sql) Use(db *sql.DB, schemaName string) *Sql {
 	s.DB = db
 	//s.SchemaName = schemaName
 	return s
 }
 
-// set sql dialect.
+// SetDialect set sql dialect.
 func (s *Sql) SetDialect(dialect string) *Sql {
 	s.Dialect = dialect
 	return s
 }
 
-// return schema name store in Sql.
+// GetSchemaName return schema name store in Sql.
 func (s Sql) GetSchemaName() string {
 	return s.SchemaName
 }
@@ -61,7 +62,7 @@ func (s Sql) QueryForInt(sql string, args ...interface{}) (r int64, err error) {
 	return
 }
 
-// QueryForIntNoError
+// QueryForIntNoError returns int result.
 func (s Sql) QueryForIntNoError(sql string, args ...interface{}) int64 {
 	r, _ := s.QueryForInt(sql, args...)
 	return r
@@ -85,19 +86,19 @@ func (s Sql) QueryForString(sql string, args ...interface{}) (r string, err erro
 	return
 }
 
-// QueryForBool
+// QueryForBool returns bool result.
 func (s Sql) QueryForBool(sql string, args ...interface{}) bool {
 	v := s.QueryForStringNoError(sql, args...)
 	return mcore.NewString(v).ToBool()
 }
 
-// QueryForStringNoError
+// QueryForStringNoError returns string result.
 func (s Sql) QueryForStringNoError(sql string, args ...interface{}) string {
 	r, _ := s.QueryForString(sql, args...)
 	return r
 }
 
-// only one column in sql, mulity rows wrap to array
+// QueryColumnForArray only one column in sql, mulity rows wrap to array
 func (s Sql) QueryColumnForArray(sql string, args ...interface{}) (r []string) {
 	rows, err := s.Query(sql, args...)
 	// if error return init []string.
@@ -116,7 +117,7 @@ func (s Sql) QueryColumnForArray(sql string, args ...interface{}) (r []string) {
 	return
 }
 
-// GetQueryColumns return columns name in string array.
+// GetQueryColumns returns columns name in string array.
 func (s Sql) GetQueryColumns(sql string, args ...interface{}) ([]string, error) {
 	rows, err := s.Query(sql, args...)
 	defer rows.Close()
@@ -132,14 +133,14 @@ func (s Sql) GetQueryRows(sql string, args ...interface{}) (int64, error) {
 	return s.QueryForInt(q, args...)
 }
 
-// IsQueryHasRows
+// IsQueryHasRows returns query rows exists.
 // if error, return false
 func (s Sql) IsQueryHasRows(sql string, args ...interface{}) bool {
 	n, _ := s.GetQueryRows(sql, args...)
 	return n > 0
 }
 
-// GetTableName
+// GetTableName returns tablename
 func (s Sql) GetTableName(model interface{}) string {
 	return TableName(model)
 }
