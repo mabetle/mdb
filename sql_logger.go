@@ -26,7 +26,7 @@ func (s SqlLogger) Log(query string, args ...interface{}) {
 	msg := fmt.Sprintf("\nQuery:%s", query)
 	if len(args) > 0 {
 		argStr := mcore.Join(",", args...)
-		msg = fmt.Sprintf("%s\nArgs:%s", msg, argStr)
+		msg = fmt.Sprintf("%s\n Args:%s", msg, argStr)
 	}
 	logger.Trace(msg)
 }
