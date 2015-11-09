@@ -3,6 +3,7 @@ package mdb
 import (
 	"github.com/mabetle/mcell/wxlsx"
 	"io"
+	"os"
 )
 
 // QueryToExcel
@@ -18,6 +19,34 @@ func (s Sql)QueryToExcel(out io.Writer,
 	return s.QueryToExcelWithLocale(out,table,include,exclude,locale,enableLocale,q,args...)
 }
 
+// QueryToExcelFile
+func (s Sql) QueryToExcelFile(
+	location string,
+	include string,
+	exclude string,
+	q string, args ... interface{}) error{
+	out, err := os.Create(location)
+	if err!=nil{
+		return err
+	}
+	return s.QueryToExcel(out,include,exclude,q,args...)
+}
+
+// QueryToExcelFileWithLocale
+func (s Sql) QueryToExcelFileWithLocale(
+	location string,
+	table string,
+	include string,
+	exclude string,
+	locale string,
+	enableLocale bool,
+	q string, args ... interface{}) error{
+	out, err := os.Create(location)
+	if err!=nil{
+		return err
+	}
+	return s.QueryToExcelWithLocale(out,table,include,exclude,locale,enableLocale,q,args...)
+}
 
 // QueryToExcelWithLocale
 // locale
