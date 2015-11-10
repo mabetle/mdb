@@ -8,15 +8,14 @@ import (
 
 // QueryToExcel
 // NoLocal support
-func (s Sql)QueryToExcel(out io.Writer,
+func (s Sql) QueryToExcel(out io.Writer,
 	include string,
 	exclude string,
-	q string, args ... interface{}) error{
-	
-	table:=""
-	locale:=""
-	enableLocale:=false
-	return s.QueryToExcelWithLocale(out,table,include,exclude,locale,enableLocale,q,args...)
+	q string, args ...interface{}) error {
+	table := ""
+	locale := ""
+	enableLocale := false
+	return s.QueryToExcelWithLocale(out, table, include, exclude, locale, enableLocale, q, args...)
 }
 
 // QueryToExcelFile
@@ -24,12 +23,12 @@ func (s Sql) QueryToExcelFile(
 	location string,
 	include string,
 	exclude string,
-	q string, args ... interface{}) error{
+	q string, args ...interface{}) error {
 	out, err := os.Create(location)
-	if err!=nil{
+	if err != nil {
 		return err
 	}
-	return s.QueryToExcel(out,include,exclude,q,args...)
+	return s.QueryToExcel(out, include, exclude, q, args...)
 }
 
 // QueryToExcelFileWithLocale
@@ -40,45 +39,40 @@ func (s Sql) QueryToExcelFileWithLocale(
 	exclude string,
 	locale string,
 	enableLocale bool,
-	q string, args ... interface{}) error{
+	q string, args ...interface{}) error {
 	out, err := os.Create(location)
-	if err!=nil{
+	if err != nil {
 		return err
 	}
-	return s.QueryToExcelWithLocale(out,table,include,exclude,locale,enableLocale,q,args...)
+	return s.QueryToExcelWithLocale(out, table, include, exclude, locale, enableLocale, q, args...)
 }
 
 // QueryToExcelWithLocale
 // locale
 // enableLocaleHeader
-func (s Sql)QueryToExcelWithLocale(out io.Writer, 
+func (s Sql) QueryToExcelWithLocale(out io.Writer,
 	table string,
 	include string,
 	exclude string,
 	locale string,
 	enableLocale bool,
-	q string, args ... interface{}) error{
-	
-	rows,err:=s.Query(q, args ...)
-	
-	if err!=nil{
+	q string, args ...interface{}) error {
+	rows, err := s.Query(q, args...)
+	if err != nil {
 		return err
 	}
-
 	// parse table name from sql
 	if table == "" {
 		table = ParseSqlTableName(q)
 	}
 
-	if table == ""{
+	if table == "" {
 		table = "common"
 	}
 
-	file, errFile := wxlsx.SqlRowsToExcelWithLocale("", table, rows, include, exclude,locale,enableLocale)
-	
-	if errFile !=nil{
+	file, errFile := wxlsx.SqlRowsToExcelWithLocale("", table, rows, include, exclude, locale, enableLocale)
+	if errFile != nil {
 		return errFile
 	}
-	
 	return file.Write(out)
 }
