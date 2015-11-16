@@ -16,10 +16,10 @@ func (s *Sql) PrintTableVertical(table string) {
 
 // PrintTableInJSONFormat prints table in JSON format.
 func (s *Sql) PrintTableInJSONFormat(table string) {
-	fmt.Println("===Begin Print Table: ", table, "====")
+	fmt.Println("\n===Begin Print Table: ", table, "====")
 	datas := s.GetTableRowsJSONData(table)
 	PrintMap(datas)
-	fmt.Println("===End.. Print Table: ", table, "====")
+	fmt.Println("\n===End.. Print Table: ", table, "====")
 }
 
 //PrintTableFriendly print table friendly.
@@ -48,19 +48,19 @@ func (s *Sql) PrintTableQueryVertical(table string, ql string, args ...interface
 
 // PrintQueryInJSONFormat prints query in JSON format.
 func (s *Sql) PrintQueryInJSONFormat(sql string, args ...interface{}) {
-	fmt.Println("============ Begin Print Query =================")
+	fmt.Println("\n============ Begin Print Query =================")
 	fmt.Printf("SQL : %v \n", sql)
 	fmt.Printf("Args: %v \n", args)
 
 	datas := s.QueryForJSONData(sql, args...)
 
 	PrintMap(datas)
-	fmt.Println("============ End  Print Query =================")
+	fmt.Println("\n============ End  Print Query =================")
 }
 
 // PrintQueryFriendly prints query friendly.
 func (s *Sql) PrintQueryFriendly(sql string, args ...interface{}) {
-	fmt.Println("============ Begin Print Query =================")
+	fmt.Println("\n============ Begin Print Query =================")
 	rows, err := s.Query(sql, args...)
 	defer rows.Close()
 
@@ -95,12 +95,12 @@ func (s *Sql) PrintQueryFriendly(sql string, args ...interface{}) {
 			}
 		}
 	}
-	fmt.Println("============ End.. Print Query =================")
+	fmt.Println("\n============ End.. Print Query =================")
 }
 
 // PrintQueryVertical prints query vertical.
 func (s *Sql) PrintQueryVertical(sql string, args ...interface{}) {
-	fmt.Println("============ Begin Print Query =================")
+	fmt.Println("\n============ Begin Print Query =================")
 
 	rows, err := s.Query(sql, args...)
 	defer rows.Close()
@@ -126,7 +126,7 @@ func (s *Sql) PrintQueryVertical(sql string, args ...interface{}) {
 
 		_ = rows.Scan(scanArgs...)
 
-		fmt.Printf("-----------Row: %d ------------------\n", rowIndex)
+		fmt.Printf("\n-----------Row: %d ------------------\n", rowIndex)
 
 		for colIndex, col := range values {
 			if col != nil {
@@ -140,5 +140,5 @@ func (s *Sql) PrintQueryVertical(sql string, args ...interface{}) {
 		fmt.Println()
 	}
 
-	fmt.Println("============ End.. Print Query =================")
+	fmt.Println("\n============ End.. Print Query =================")
 }
