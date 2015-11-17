@@ -22,9 +22,7 @@ func (s Sql) Exec(query string, v ...interface{}) (r sql.Result, err error) {
 func (s Sql) Query(query string, args ...interface{}) (*sql.Rows, error) {
 	GetSqlLogger().Log(query, args...)
 	r, err := s.DB.Query(query, args...)
-	if err != nil {
-		logger.Error("Error:", err)
-	}
+	logger.CheckError(err)
 	return r, err
 }
 
