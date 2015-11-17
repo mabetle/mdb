@@ -17,9 +17,13 @@ func (s *Sql) PrintTableVertical(table string) {
 
 // PrintTableInJSONFormat prints table in JSON format.
 func (s *Sql) PrintTableInJSONFormat(table string) {
+	datas, columns, err := s.GetTableRowsMap(table)
 	fmt.Println("\n===Begin Print Table: ", table, "====")
-	datas := s.GetTableRowsJSONData(table)
-	PrintMap(datas)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	} else {
+		PrintMapWithColumns(datas, columns)
+	}
 	fmt.Println("\n===End.. Print Table: ", table, "====")
 }
 
@@ -49,14 +53,14 @@ func (s *Sql) PrintTableQueryVertical(table string, ql string, args ...interface
 
 // PrintQueryInJSONFormat prints query in JSON format.
 func (s *Sql) PrintQueryInJSONFormat(sql string, args ...interface{}) {
-	fmt.Println("\n============ Begin Print Query =================")
+	fmt.Println("\n============ Begin Print Query Json =================")
 	datas, columns, err := s.QueryForMaps(sql, args...)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	} else {
 		PrintMapWithColumns(datas, columns)
 	}
-	fmt.Println("\n============ End  Print Query =================")
+	fmt.Println("============ End  Print Query Json =================")
 }
 
 func maxIndexLen(data [][]string, index int) int {

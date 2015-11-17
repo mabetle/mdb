@@ -121,3 +121,9 @@ func (s Sql) GetTableRowsJSONData(table string) map[string]string {
 	sql := GetSelectAllSql(table)
 	return s.QueryForJSONData(sql)
 }
+
+// GetTableRowsMap
+func (s Sql) GetTableRowsMap(table string) ([]map[string]interface{}, []string, error) {
+	q := GetSelectAllSql(table)
+	return s.QueryForMaps(q)
+}
