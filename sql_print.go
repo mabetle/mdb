@@ -105,7 +105,8 @@ func maxCol(row []string) int {
 
 // PrintArrayFriendly
 func PrintArrayFriendly(data [][]string) {
-	if len(data) < 1 {
+	// no data
+	if len(data) == 0 {
 		return
 	}
 	maxLen := maxLen(data)
@@ -122,7 +123,7 @@ func PrintArrayFriendly(data [][]string) {
 }
 
 func PrintArrayVerticalFriendly(data [][]string) {
-	if len(data) < 1 {
+	if len(data) == 0 {
 		fmt.Printf("no results.\n")
 		return
 	}
