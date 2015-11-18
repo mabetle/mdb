@@ -25,7 +25,7 @@ func (s Sql) QueryToExcelFile(
 	exclude string,
 	q string, args ...interface{}) error {
 	out, err := os.Create(location)
-	if err != nil {
+	if logger.CheckError(err) {
 		return err
 	}
 	return s.QueryToExcel(out, include, exclude, q, args...)
@@ -41,7 +41,7 @@ func (s Sql) QueryToExcelFileWithLocale(
 	enableLocale bool,
 	q string, args ...interface{}) error {
 	out, err := os.Create(location)
-	if err != nil {
+	if logger.CheckError(err) {
 		return err
 	}
 	return s.QueryToExcelWithLocale(out, table, include, exclude, locale, enableLocale, q, args...)
@@ -58,20 +58,18 @@ func (s Sql) QueryToExcelWithLocale(out io.Writer,
 	enableLocale bool,
 	q string, args ...interface{}) error {
 	rows, err := s.Query(q, args...)
-	if err != nil {
+	if logger.CheckError(err) {
 		return err
 	}
 	// parse table name from sql
 	if table == "" {
 		table = ParseSqlTableName(q)
 	}
-
 	if table == "" {
 		table = "common"
 	}
-
 	file, errFile := wxlsx.SqlRowsToExcelWithLocale("", table, rows, include, exclude, locale, enableLocale)
-	if errFile != nil {
+	if logger.CheckError(errFile) {
 		return errFile
 	}
 	return file.Write(out)
