@@ -18,13 +18,11 @@ func (s *Sql) PrintTableVertical(table string) {
 // PrintTableInJSONFormat prints table in JSON format.
 func (s *Sql) PrintTableInJSONFormat(table string) {
 	datas, columns, err := s.GetTableRowsMap(table)
-	fmt.Println("\n===Begin Print Table: ", table, "====")
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	} else {
 		PrintMapWithColumns(datas, columns)
 	}
-	fmt.Println("\n===End.. Print Table: ", table, "====")
 }
 
 //PrintTableFriendly print table friendly.
@@ -53,14 +51,12 @@ func (s *Sql) PrintTableQueryVertical(table string, ql string, args ...interface
 
 // PrintQueryInJSONFormat prints query in JSON format.
 func (s *Sql) PrintQueryInJSONFormat(sql string, args ...interface{}) {
-	fmt.Println("\n============ Begin Print Query Json =================")
 	datas, columns, err := s.QueryForMaps(sql, args...)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	} else {
 		PrintMapWithColumns(datas, columns)
 	}
-	fmt.Println("============ End  Print Query Json =================")
 }
 
 func maxIndexLen(data [][]string, index int) int {
@@ -148,15 +144,11 @@ func PrintArrayVerticalFriendly(data [][]string) {
 // PrintQueryFriendly prints query friendly.
 func (s *Sql) PrintQueryFriendly(q string, args ...interface{}) {
 	data := s.QueryForArrayWithHeader(q, args...)
-	fmt.Println("\n============ Begin Print Query Friendly =================")
 	PrintArrayFriendly(data)
-	fmt.Println("============ End.. Print Query Friendly =================")
 }
 
 // PrintQueryVertical prints query vertical.
 func (s *Sql) PrintQueryVertical(q string, args ...interface{}) {
 	data := s.QueryForArrayWithHeader(q, args...)
-	fmt.Println("\n============ Begin Print Query Vertical =================")
 	PrintArrayVerticalFriendly(data)
-	fmt.Println("\n============ End.. Print Query Vertical =================")
 }
