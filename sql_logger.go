@@ -28,5 +28,5 @@ func (s SqlLogger) Log(query string, args ...interface{}) {
 		argStr := mcore.Join(",", args...)
 		msg = fmt.Sprintf("%s\n Args:%s", msg, argStr)
 	}
-	logger.Trace(msg)
+	logger.Debug(msg)
 }
