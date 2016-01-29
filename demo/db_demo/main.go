@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"mabetle/hub"
+	"mabetle/libs/hubs"
 	"github.com/mabetle/mdb"
 	"github.com/mabetle/mdb/demo"
 )
