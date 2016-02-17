@@ -8,7 +8,7 @@ import (
 
 // Sql wrap sql.DB and provide many functions.
 type Sql struct {
-	*sql.DB
+	DB         *sql.DB
 	SchemaName string
 	Dialect    string // defautl to mysql.
 }
