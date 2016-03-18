@@ -10,7 +10,7 @@ func (s Sql) QueryForHtml(q string, args []interface{}, renderArgs ...string) st
 	// parse renderArgs
 	include := mcore.GetArgString("include", "", renderArgs...)
 	exclude := mcore.GetArgString("exclude", "", renderArgs...)
-	hasLimit := mcore.GetArgExists("limit", renderArgs...)
+	hasLimit := mcore.IsArgExists("limit", renderArgs...)
 	limit := mcore.GetArgInt("limit", 20, renderArgs...)
 
 	dataMap, columns, err := s.QueryForMaps(q, args...)
@@ -66,5 +66,5 @@ func (s Sql) ExecForHtml(q string, args []interface{}, renderArgs ...string) str
 	if err2 != nil {
 		return fmt.Sprintf(`<div class="error">Error: %v</div>`, err)
 	}
-	return fmt.Sprintf(`<div>%n rows affected</div>`, n)
+	return fmt.Sprintf(`<div class="info">%n rows affected</div>`, n)
 }
