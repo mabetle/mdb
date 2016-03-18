@@ -24,10 +24,10 @@ func NewXorm(conf *dbconf.DBConf) (*mdb.Xorm, error) {
 	}
 
 	// set engine default config
-	engine.ShowSQL = false
-	engine.ShowDebug = false
-	engine.ShowErr = true
-	engine.ShowWarn = false
+	//engine.ShowSQL = false
+	//engine.ShowDebug = false
+	//engine.ShowErr = true
+	//engine.ShowWarn = false
 	//engine.SetColumnMapper(core.SnakeMapper{})
 	engine.SetTableMapper(core.SnakeMapper{})
 	engine.SetColumnMapper(core.SameMapper{})
@@ -50,10 +50,10 @@ func NewDevXorm(conf *dbconf.DBConf) (*mdb.Xorm, error) {
 	}
 
 	// set engine default config
-	engine.ShowSQL = true
-	engine.ShowDebug = true
-	engine.ShowErr = true
-	engine.ShowWarn = true
+	//engine.ShowSQL = true
+	//engine.ShowDebug = true
+	//engine.ShowErr = true
+	//engine.ShowWarn = true
 
 	engine.SetTableMapper(core.SnakeMapper{})
 	engine.SetColumnMapper(core.SameMapper{})
