@@ -3,17 +3,17 @@ package mdb
 //SqlString
 
 // GetDropTableSql
-func GetDropTableSql(table string)string{
+func GetDropTableSql(table string) string {
 	return "drop table " + table
 }
 
 // GetClearTableSql
-func GetClearTableSql(table string)string{
+func GetClearTableSql(table string) string {
 	return "delete from " + table
 }
 
 // GetRemoveRowSql
-func GetRemoveRowSql(table string)string{
+func GetRemoveRowSql(table string) string {
 	return "delete from " + table + " where id= ? "
 }
 
@@ -23,10 +23,9 @@ func GetCountRowsSql(table string) string {
 }
 
 // GetIsHasIDSql
-func GetIsHasIDSql(table string) string{
-	return "select count(*) from "+ table + " where id = ?"
+func GetIsHasIDSql(table string) string {
+	return "select count(*) from " + table + " where id = ?"
 }
-
 
 //GetCountColumnsSql
 func GetCountColumnsSql(table string) string {
@@ -34,9 +33,6 @@ func GetCountColumnsSql(table string) string {
 }
 
 //GetSelectAllSql
-func GetSelectAllSql(table string)string{
+func GetSelectAllSql(table string) string {
 	return "select * from " + table
 }
-
-
-
