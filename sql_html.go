@@ -38,7 +38,7 @@ func (s Sql) QueryForHtml(q string, args []interface{}, renderArgs ...string) st
 		if i%2 == 0 {
 			trClass = "even"
 		}
-		if hasLimit && i > limit {
+		if hasLimit && i >= limit {
 			break
 		}
 		sb.Appendf(`<tr class="%s">`, trClass)
