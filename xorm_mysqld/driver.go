@@ -28,8 +28,10 @@ func NewXorm(conf *dbconf.DBConf) (*mdb.Xorm, error) {
 	//engine.ShowDebug = false
 	//engine.ShowErr = true
 	//engine.ShowWarn = false
-	//engine.SetColumnMapper(core.SnakeMapper{})
+
 	engine.SetTableMapper(core.SnakeMapper{})
+
+	//engine.SetColumnMapper(core.SnakeMapper{})
 	engine.SetColumnMapper(core.SameMapper{})
 
 	return mdb.NewXorm(engine), nil
