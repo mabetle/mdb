@@ -7,7 +7,7 @@ import (
 
 // NewSql
 func NewSql(conf *dbconf.DBConf) (*mdb.Sql, error) {
-	logger.Tracef("Create new mdb.Sql. Host:%s Schema:%s", conf.Host, conf.Database)
+	logger.Infof("Create new mdb.Sql. Host:%s Schema:%s", conf.Host, conf.Database)
 	db, err := NewDBFromDBConf(conf)
 	if logger.CheckError(err) {
 		return nil, err

@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"mabetle/libs/hubs"
 	"github.com/mabetle/mdb"
 	"github.com/mabetle/mdb/demo"
+	"mabetle/libs/hubs"
 )
 
 var (
-	sql   = hub.NewDemoSql()
+	sql   = hubs.GetDemoSql()
 	table = "demo_table"
 )
 
@@ -23,7 +23,7 @@ func DemoCountTableColumns() {
 }
 
 func DemoGetTableColumns() {
-	v := sql.GetTableColumns(table)
+	v, _ := sql.GetTableColumns(table)
 	fmt.Println(v)
 }
 
