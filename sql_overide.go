@@ -6,7 +6,7 @@ import (
 
 // Exec override sql.DB.Exec(), add some logs, print sql and args, when occur error print it.
 func (s Sql) Exec(query string, v ...interface{}) (r sql.Result, err error) {
-	GetSqlLogger().Log(query, v...)
+	s.Log(query, v...)
 	r, err = s.DB.Exec(query, v...)
 	if logger.CheckError(err) {
 		return
@@ -20,7 +20,7 @@ func (s Sql) Exec(query string, v ...interface{}) (r sql.Result, err error) {
 
 // Query  overide sql.DB Query, add logs
 func (s Sql) Query(query string, args ...interface{}) (*sql.Rows, error) {
-	GetSqlLogger().Log(query, args...)
+	s.Log(query, args...)
 	r, err := s.DB.Query(query, args...)
 	logger.CheckError(err)
 	return r, err
@@ -28,7 +28,7 @@ func (s Sql) Query(query string, args ...interface{}) (*sql.Rows, error) {
 
 // QueryRow overide sql.DB QueryRow, add logs
 func (s Sql) QueryRow(query string, args ...interface{}) *sql.Row {
-	GetSqlLogger().Log(query, args...)
+	s.Log(query, args...)
 	r := s.DB.QueryRow(query, args...)
 	//logger.Debug()
 	return r

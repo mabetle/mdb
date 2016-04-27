@@ -6,11 +6,12 @@ import (
 	"github.com/mabetle/mcore"
 )
 
-// Sql wrap sql.DB and provide many functions.
+// Sql wrap sqlDB and provide many functions.
 type Sql struct {
 	DB         *sql.DB
 	SchemaName string
 	Dialect    string // defautl to mysql.
+	ShowSql    bool
 }
 
 // New creates sql
